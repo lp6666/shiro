@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.imooc.controller"/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/*" location="/" />
+     <!--开启aop对类的代理 使用注解控制权限-->
+    <aop:config proxy-target-class="true"/>
+
+    <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+
+    <!--开启shiro注解支持-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 对模型视图添加前后缀 -->
+   <!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:suffix=".jsp"/>-->
+
+    <!-- configure SimpleMappingExceptionResolver 配置异常跳转 -->
+   <!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.ArithmeticException">error</prop>
+            </props>
+        </property>
+    </bean>-->
+
+    <!--拦截器配置-->
+    <!-- interceptor setting -->
+   <!-- <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/system/**"/>
+            <bean class="com.imooc.utils.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+
+
+</beans>
